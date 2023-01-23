@@ -36,14 +36,3 @@ print(len(area))
 area.sort()
 for i in area:
     print(i,end=' ')
-
-
-
-
-
-
-
-
-
-
-
