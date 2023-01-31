@@ -1,3 +1,4 @@
+# 1. 처음
 n=int(input())
 price=[]
 cost=0
@@ -17,12 +18,16 @@ else:
             cost+=price[i]
 print(cost)
 
+# 2. 최적화
+import sys
+input = sys.stdin.readline
+n=int(input())
 
+price = [int(input()) for _ in range((n))]
+price.sort(reverse=True)
+cost = sum(price)
 
-# 0
-# 1
-# 2
-# 3
-# 4
-# 5
-# 6
+for i in range(2,n,3):
+    cost-=price[i]
+
+print(cost)
