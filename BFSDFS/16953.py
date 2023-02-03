@@ -3,33 +3,24 @@ from collections import deque
 import math
 a,b=map(int,input().split())
 queue = deque()
-count=[]
 ans=-1
 
-queue.append(a)
+queue.append((a,1))
 index=0
 while queue:
-    index+=1
-    q = queue.popleft()
-    if (q&(q-1))==0:
-        print(q)
-        index=q//2
+    q,cnt = queue.popleft()
     if q==b:
-        ans=math.ceil(math.sqrt(index))
+        ans=cnt
         break
-    q2=q*2
-    q1=int(str(q)+str("1"))
-    if q2<=b:
-        queue.append(q*2)
-    if q1<=b:
-        queue.append(int(str(q)+str("1")))
-print(index)
+    if q>b:
+        continue
+    queue.append((q*2,cnt+1))
+    queue.append((int(str(q)+str("1")),cnt+1))
+
 print(ans)
 
-
-# # 2 162
+# ex) 2 162
 # 2 
-
 # 4 21 [2] 1
 # 21 8 41 [4] 2
 # 8 41 42 211 [21] 3
@@ -43,10 +34,8 @@ print(ans)
 # # 2 → 4 → 8 → 81 → 162
 
 
-
-# # 2 162
+# ex) 2 162
 # 2 
-
 # 4 21 [2] 1
 # 21 8 41 [4] 2
 # 8 41 42 [21] 3
@@ -59,10 +48,3 @@ print(ans)
 # 32 161 162 [84]
 # 161 162 [32]
 # 162 [161]
-
-
-# 16 81 82 84  [211] 7
-# 81 82 84 32 161 [16] 8
-# 84 32 161 162 [81]
-
-
