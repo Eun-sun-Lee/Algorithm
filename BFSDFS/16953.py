@@ -11,15 +11,19 @@ index=0
 while queue:
     index+=1
     q = queue.popleft()
+    if (q&(q-1))==0:
+        print(q)
+        index=q//2
     if q==b:
         ans=math.ceil(math.sqrt(index))
         break
     q2=q*2
     q1=int(str(q)+str("1"))
-    if q2<=
-    # queue.append(q*2)
-    # queue.append(int(str(q)+str("1")))
-
+    if q2<=b:
+        queue.append(q*2)
+    if q1<=b:
+        queue.append(int(str(q)+str("1")))
+print(index)
 print(ans)
 
 
