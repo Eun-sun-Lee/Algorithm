@@ -20,3 +20,6 @@ for i in range(t):
     l = list(map(int, input().split()))
     l.insert(0, 0)
     print(cycle(n, l))
+
+    # 1 2 3 4 5 6 7 8
+    # 3 2 7 8 1 4 5 6
