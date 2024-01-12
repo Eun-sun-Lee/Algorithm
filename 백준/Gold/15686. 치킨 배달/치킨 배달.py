@@ -13,7 +13,7 @@ for i in range(n):
         else: continue
     graph.append(l)
 
-def dfs(selectN, i):
+def dfs(i, selectN):
     global ans
     if i > len(chicken): return
     if selectN == m:
@@ -26,10 +26,12 @@ def dfs(selectN, i):
             distanceAll += distance
         ans = min(ans, distanceAll)
     
+    # 밑에 두줄 : 원하는 갯수만큼 chickcomb에 값을 채우는 역할
     chickComb.append(i)
-    dfs(selectN + 1, i + 1)
+    dfs(i + 1, selectN + 1)
+    # 밑에 두줄 : distance를 계산한 후 해당 조합을 제거하고, 다른 수를 넣어 새로운 조합을 만드는 역할
     chickComb.pop()
-    dfs(selectN, i + 1)
+    dfs(i + 1, selectN)
 
 dfs(0,0)
 print(ans)
