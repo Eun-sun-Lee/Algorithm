@@ -18,9 +18,8 @@ while True:
             if visited[i] == True:
                 cycle = True
                 break
-            else:
-                parent[i] = x
-                dfs(i)
+            parent[i] = x
+            dfs(i)
 
     for _ in range(1, e + 1):
         l = list(map(int, sys.stdin.readline().split()))
