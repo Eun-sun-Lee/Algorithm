@@ -14,15 +14,13 @@ while True:
         global tree, cycle
         visited[x] = True
         for i in graph[x]:
-            if not visited[i]:
+            if parent[x] == i: continue # 방문한적 O, cycle X
+            if visited[i] == True:
+                cycle = True
+                break
+            else:
                 parent[i] = x
                 dfs(i)
-            else:
-                while parent[i] != 0:
-                    if i == 0: break
-                    i = parent[i]
-                    if i == x:  # cycle
-                        cycle = True
 
     for _ in range(1, e + 1):
         l = list(map(int, sys.stdin.readline().split()))
