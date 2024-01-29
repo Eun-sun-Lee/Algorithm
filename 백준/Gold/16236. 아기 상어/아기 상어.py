@@ -29,7 +29,7 @@ def bfs(graph, startY, startX):
 
     queue = deque()
     queue.append((0, startY, startX))  # Change initial count to 0
-    visited[startY][startX] = True
+    # visited[startY][startX] = True
     eat = sys.maxsize, startY, startX
 
     while queue:
@@ -50,12 +50,12 @@ def bfs(graph, startY, startX):
 
     return eat
 
-graph[startY][startX] = 0 # 이거 때메 자꾸 값 이상함 (맨처음 시작점-9도 graph 값 초기화 필요)
+ # 이거 때메 자꾸 값 이상함 (맨처음 시작점-9도 graph 값 초기화 필요)
 while True:
+    graph[startY][startX] = 0
     count, startY, startX = bfs(graph, startY, startX)
     if count == sys.maxsize:
         break
-    graph[startY][startX] = 0
     sharkCnt += 1
     cntTotal += count
 
