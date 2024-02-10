@@ -31,10 +31,10 @@ def bfs(startY, startX, n, m, wallLeft):
             nextX = dx[i] + x
 
             if 0 <= nextX < m and 0 <= nextY < n:
+                if visited[nextY][nextX][wallLeft] != 0: continue
                 if graph[nextY][nextX] == 0:
-                    if visited[nextY][nextX][wallLeft] == 0:
-                        visited[nextY][nextX][wallLeft] = visited[y][x][wallLeft] + 1
-                        queue.append((nextY, nextX, wallLeft))
+                    visited[nextY][nextX][wallLeft] = visited[y][x][wallLeft] + 1
+                    queue.append((nextY, nextX, wallLeft))
                 else:
                     if wallLeft == 1:
                         visited[nextY][nextX][wallLeft - 1] = visited[y][x][wallLeft] + 1
