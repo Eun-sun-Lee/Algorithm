@@ -1,17 +1,23 @@
-import sys
-n = int(sys.stdin.readline()) #기관차가 끌고 가던 객차의 수
-people = [0] + list(map(int, sys.stdin.readline().split()))
-m = int(sys.stdin.readline()) #소형기관차가 최대로 끌 수 있는 객차의 수
-dp = [[0 for j in range(n+1)] for i in range(4)] #4 = 누적합 1칸 + 소형기관차 3대
+import sys 
+n = int(sys.stdin.readline())
+arr = [0]
+l = list(map(int, sys.stdin.readline().split()))
+arr += l
+limit = int(sys.stdin.readline())
 
-for i in range(4):
-    for j in range(1, n+1):
-        if i == 0: #누적합
-            dp[i][j] = dp[i][j-1] + people[j]
-        elif j < i*m:
-            continue
-        elif i == 1 and j >= i*m:
-            dp[i][j] = max(dp[i][j-1], dp[0][j]-dp[0][j-m])
-        else:
-            dp[i][j] = max(dp[i][j-1], (dp[i-1][j-m] + dp[0][j] - dp[0][j-m]))
-print(dp[-1][-1])
+# 누적합 구하기 
+prefix_sum = [0] * (n + 1)
+for i in range(1, n + 1):
+    prefix_sum[i] = prefix_sum[i - 1] + arr[i]
+# print(prefix_sum)
+
+def sol(arr, n, prefix_sum, limit):
+    dp = [[0] * (n + 1) for _ in range(4)]
+
+    for i in range(1, 4):
+        for j in range(n + 1):
+            dp[i][j] = max(dp[i][j - 1], dp[i-1][j-limit] + prefix_sum[j] - prefix_sum[j-limit])
+    print(dp[3][n])
+
+sol(arr, n, prefix_sum, limit)
+
