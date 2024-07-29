@@ -14,12 +14,11 @@ def sol(a, b, d, N):
 
         if i >= b:
             dp[i] = (dp[i] - dp[i - b]) % 1000
+    # print(dp)
     
-    # 살아 있는 개체 수 계산
-    alive = dp[N]
-    if N >= d:
-        alive = (alive - dp[N - d]) % 1000
-    
-    print(alive)
-
+    if N >= d: # 에외 처리
+        print((dp[N] - dp[N - d]) % 1000)
+    else:
+        print(dp[N] % 1000)
+        
 sol(a, b, d, N)
