@@ -9,18 +9,14 @@ def sol(n, m, arr):
     for i in range(1, n + 1):
         partSum[i] = partSum[i-1] + arr[i]
 
-    arr.sort() # 변경 
-
+    # arr.sort() # 부분합 구하고 정렬하도록 변경 
     start = end = 0
     ans = sys.maxsize
-
-    # print(partSum)
 
     while start <= end and end <= n:
         if (partSum[end] - partSum[start]) < m:
             end += 1
         else: 
-            # print(start, end, end - start)
             ans = min(ans, (end - start))
             start += 1 
     if ans == sys.maxsize:
