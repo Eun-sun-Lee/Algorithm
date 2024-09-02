@@ -1,5 +1,4 @@
--- 코드를 입력하세요
-SELECT i.INGREDIENT_TYPE, sum(f.total_order) TOTAL_ORDER
-from FIRST_HALF f, ICECREAM_INFO i
-where f.flavor = i.flavor
-group by i.INGREDIENT_TYPE
+select INGREDIENT_TYPE, sum(TOTAL_ORDER)
+from ICECREAM_INFO i join FIRST_HALF f using (FLAVOR)
+group by INGREDIENT_TYPE
+order by 1 desc, 2
