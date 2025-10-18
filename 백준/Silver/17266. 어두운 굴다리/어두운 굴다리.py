@@ -18,7 +18,7 @@ def binary_search(maxNum):
             answer = mid 
         else:
             left = mid + 1
-    print(answer)
+    #print(answer)
 
 maxNum = max(light[0] - 0, N - light[len(light) - 1])
 for i in range(1, len(light)):
@@ -26,3 +26,4 @@ for i in range(1, len(light)):
     maxNum = max(diff, maxNum)
 
 binary_search(maxNum)
+print(maxNum)
