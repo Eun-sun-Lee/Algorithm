@@ -1,22 +1,22 @@
 import sys 
 sys.setrecursionlimit(10 ** 9)
 
-str = sys.stdin.readline()
-memo = [[-1] * 2 for _ in range(len(str))]
+str = list(map(int, sys.stdin.readline().strip()))
+dp = [0] * (len(str) + 1)
+leng = len(str)
 
-def dfs(idx, str, ii):
-    if idx == len(str) - 1:
-        return 1 
+dp[0] = 1
+dp[1] = 1
 
-    if memo[idx][ii] != -1: return memo[idx][ii]
-
-    way = 0
-    for i in range(1, 3):
-        nIdx = idx + i
-        if nIdx < len(str) and 0 < int(str[idx:nIdx]) <= 26 and str[idx:nIdx][0] != "0": # 2. 0처리 추가 (0 < )
-            way += dfs(nIdx, str, i - 1)
-        memo[idx][ii] = way % 1000000
-    return memo[idx][ii] % 1000000
-
-print(dfs(0, str, 0) % 1000000)
-# print(int("01")) -> 1
+if str[0] == 0:
+	print(0)
+else:
+	for i in range(2, len(str) + 1):
+		for j in range(2):
+			if j == 0: # 25114 01234  
+				if str[i-1] > 0:
+					dp[i] += dp[i-1]
+			else:
+				if 10 <= str[i-2] * 10 + str[i-1] <= 26:
+					dp[i] += dp[i-2]
+	print(dp[leng] % 1000000)
