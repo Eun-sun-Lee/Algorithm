@@ -1,45 +1,42 @@
 import sys
-cnt = 1
 
+def dfs(node, parent):
+    global visited
+    visited[node] = True
+
+    for nx in graph[node]:
+        if visited[nx] == False:
+            if dfs(nx, node) == False: # 사이클이 있다면
+                return False # 바로 리턴
+        else: # 이미 방문한 노드라면
+            if parent != nx:
+                return False
+    return True 
+
+case = 0
 while True:
-    n, e = map(int, sys.stdin.readline().split())
-    if n == 0 and e == 0: break
+    case += 1
+    n, m = map(int, sys.stdin.readline().split())
+
+    if n == 0 and m == 0: break
 
     graph = [[] for _ in range(n + 1)]
-    parent = [0] * (n + 1)
-    visited = [False for _ in range(n + 1)]
-    tree = 0
-
-    def dfs(x):
-        global tree, cycle
-        visited[x] = True
-        for i in graph[x]:
-            if parent[x] == i: continue # 방문한적 O, cycle X
-            if visited[i] == True:
-                cycle = True
-                break
-            parent[i] = x
-            dfs(i)
-
-    for _ in range(1, e + 1):
-        l = list(map(int, sys.stdin.readline().split()))
-        v1 = l[0]
-        v2 = l[1]
+    visited = [False] * (n + 1)
+    for _ in range(m):
+        v1, v2 = map(int, sys.stdin.readline().split())
         graph[v1].append(v2)
         graph[v2].append(v1)
 
+    answer = 0
     for i in range(1, n + 1):
-        cycle = False
-        if visited[i]: continue
-        if len(graph[i]) != 0:
-            dfs(i)
-        if cycle == False:
-            tree += 1
-
-    if tree == 0:
-        print(f"Case {cnt}: No trees.")
-    elif tree == 1:
-        print(f"Case {cnt}: There is one tree.")
+        if visited[i] == False:
+            if dfs(i, -1) == True:
+                answer += 1
+    
+    if answer == 0:
+        print(f"Case {case}: No trees.")
+    elif answer == 1:
+        print(f"Case {case}: There is one tree.")
     else:
-        print(f"Case {cnt}: A forest of {tree} trees.")
-    cnt += 1
+        print(f"Case {case}: A forest of {answer} trees.")
+    
