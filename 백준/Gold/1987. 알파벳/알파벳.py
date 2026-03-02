@@ -22,9 +22,6 @@ def dfs(level, x, y):
     global used, ans
     
     ans = max(ans, level)
-
-    if level == len(alpha):
-        return
     
     for i in range(4):
         ny = y + dy[i]
@@ -47,6 +44,3 @@ def dfs(level, x, y):
 
 dfs(1, 0, 0)
 print(ans)
-
-
-
