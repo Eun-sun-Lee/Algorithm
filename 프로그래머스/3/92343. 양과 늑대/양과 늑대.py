@@ -1,28 +1,26 @@
-def dfs(idx, sheep, wolf, possible):
-    global g_info, answer, graph
-    # print(idx, possible, sheep)
-    
-    if g_info[idx] == 0:
-        sheep += 1
-        answer = max(answer, sheep)
-    else:
-        wolf += 1
-    if wolf >= sheep:
-        return 
-    
-    possible.extend(graph[idx])
-    for p in possible:
-        dfs(p, sheep, wolf, [i for i in possible if i != p])
-
 def solution(info, edges):
-    global answer, g_info, visited, graph
-    answer = 0
-    g_info = info
-    n = len(info)
-    graph = [[] for _ in range(n)]
+    answer = []
+    visited = [False] * len(info)
     
-    for a, b in edges:
-        graph[a].append(b)
     
-    dfs(0, 0, 0, [])
-    return answer
+    def dfs(sheeps, wolves):
+        if sheeps > wolves:
+            answer.append(sheeps)
+        else:
+            return
+        
+        for p, c in edges:
+            # 부모는 방문하였지만 자식은 방문 안한 경우만 진행
+            if visited[p] and not visited[c]:
+                visited[c] = True
+                if info[c] == 0:
+                    dfs(sheeps + 1, wolves)
+                else:
+                    dfs(sheeps, wolves + 1)
+                # 만약 다른 곳을 들렸다 방문 시 조건에 충족할 수 있어 false 처리
+                visited[c] = False
+                
+    visited[0] = True
+    dfs(1, 0)
+    
+    return max(answer)
