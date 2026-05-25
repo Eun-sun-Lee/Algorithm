@@ -15,8 +15,8 @@ def dfs(valSum, idx, target, numbers):
     cnt = 0
     for j in range(2):
         num = numbers[idx] * oper[j]
-        if idx + 1 <= len(numbers): # list out of index 방지
-            cnt += dfs(valSum + num, idx + 1, target, numbers)
+        # if idx + 1 <= len(numbers): # list out of index 방지
+        cnt += dfs(valSum + num, idx + 1, target, numbers)
     return cnt
         
 def solution(numbers, target):
