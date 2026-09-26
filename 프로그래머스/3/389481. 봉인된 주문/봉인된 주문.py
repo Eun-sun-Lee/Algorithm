@@ -18,10 +18,13 @@ def solution(n, bans):
             break
 
     # 3. 숫자(n)를 다시 주문 문자열로 변환
-    answer = ''
+    answer = ""
 
     while n > 0:
+        print(n, n % 26)
         n -= 1
-        answer = chr(n % 26 + ord('a')) + answer
+        answer += chr(n % 26 + ord('a'))
         n //= 26
+        
+    answer = answer[::-1]
     return answer
